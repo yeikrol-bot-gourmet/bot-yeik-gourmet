@@ -15,5 +15,13 @@ nixPkgs = [
     "alsa-lib",
     "expat",
     "gtk3",
-    "libgbm"
+    "libgbm",
+    "pciutils",
+    "udev"
 ]
+
+[phases.build]
+cmds = ["npm install"]
+
+[start]
+cmd = "node índice.js"

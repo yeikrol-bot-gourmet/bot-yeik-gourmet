@@ -1,6 +1,6 @@
 require("dotenv").config();
 const fs = require("fs");
-const path = path = require("path");
+const path = require("path");
 const { Groq } = require("groq-sdk");
 const { Client, LocalAuth } = require('whatsapp-web.js');
 

@@ -1,15 +1,12 @@
 require("dotenv").config();
 const fs = require("fs");
-const path = require("path");
+const path = path = require("path");
 const { Groq } = require("groq-sdk");
 const { Client, LocalAuth } = require('whatsapp-web.js');
 
 // ======================================================
 // CONFIGURACIÓN Y CONSTANTES
 // ======================================================
-
-require("dotenv").config();
-const { Client, LocalAuth } = require('whatsapp-web.js');
 
 const client = new Client({
     authStrategy: new LocalAuth({ clientId: "yeik-gourmet-v3" }),

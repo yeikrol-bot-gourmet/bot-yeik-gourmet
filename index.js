@@ -12,6 +12,7 @@ const client = new Client({
     authStrategy: new LocalAuth({ clientId: "yeik-gourmet-v3" }),
     puppeteer: {
         headless: true,
+        protocolTimeout: 60000, // Aumenta el tiempo de espera a 60 segundos para evitar el timeout
         args: [
             "--no-sandbox",
             "--disable-setuid-sandbox",
@@ -19,6 +20,7 @@ const client = new Client({
             "--disable-accelerated-2d-canvas",
             "--no-first-run",
             "--no-zygote",
+            "--single-process", // Vital para servidores pequeños / contenedores limitados
             "--disable-gpu"
         ]
     }

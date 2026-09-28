@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const { Groq } = require("groq-sdk");
 const { Client, LocalAuth } = require('whatsapp-web.js');
+const qrcode = require('qrcode-terminal');
 
 // ======================================================
 // CONFIGURACIÓN Y CONSTANTES
@@ -699,15 +700,14 @@ async function procesarMensaje(message) {
 }
 
 // ======================================================
-// EVENTOS CLIENTE WHATSAPP (CORREGIDO PARA LA NUBE)
+// EVENTOS CLIENTE WHATSAPP (QR COMPACTO EN TERMINAL)
 // ======================================================
 
 client.on("qr", qr => {
     console.log("\n==================================================");
-    console.log("📱 ESCANEA ESTE CÓDIGO QR DESDE TU NAVEGADOR");
-    console.log("Copia este enlace y pégalo en tu navegador para ver el QR perfecto y nítido:");
-    console.log(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qr)}`);
+    console.log("📱 ESCANEA ESTE CÓDIGO QR DESDE TU WHATSAPP:");
     console.log("==================================================\n");
+    qrcode.generate(qr, { small: true });
 });
 
 client.on("ready", () => {

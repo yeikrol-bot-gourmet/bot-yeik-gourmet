@@ -22,6 +22,7 @@ const client = new Client({
     }
 });
 
+// Actualización del modelo de Groq para garantizar estabilidad y compatibilidad óptima
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 const NUMERO_TITULAR = "3017237672";
@@ -408,7 +409,7 @@ async function enviarMensajeSeguro(message, texto) {
 async function preguntarGroq(texto) {
     try {
         const respuesta = await groq.chat.completions.create({
-            model: "openai/gpt-oss-120b",
+            model: "llama-3.3-70b-versatile",
             messages: [
                 {
                     role: "system",
@@ -541,7 +542,6 @@ async function procesarMensaje(message) {
         }
         
         cliente.direccion = texto;
-        // Se calcula si aplica cobro de domicilio ($3000) o es gratis
         cliente.costoDomicilio = calcularCostoDomicilio(texto);
         cliente.estado = "esperando_pago";
         guardarClientes();

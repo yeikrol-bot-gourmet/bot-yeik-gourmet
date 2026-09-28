@@ -3,7 +3,6 @@ const fs = require("fs");
 const path = require("path");
 const { Groq } = require("groq-sdk");
 const { Client, LocalAuth } = require('whatsapp-web.js');
-const qrcode = require('qrcode-terminal');
 
 // ======================================================
 // CONFIGURACIÓN Y CONSTANTES
@@ -90,7 +89,7 @@ const MENU = {
     combo_hamburguesa_papas: { nombre: "Combo Hamburguesa + Papas 🍔🍟", precio: 18000, aliases: ["hamburguesa con papas", "combo hamburguesa papas", "hamburguesa y papas"] },
     combo_perro_papas: { nombre: "Combo Perro + Papas 🌭🍟", precio: 13000, aliases: ["perro con papas", "combo perro papas", "perro y papas"] },
     trio_hamburguesa: { nombre: "Combo Trío Hamburguesa (Burguer + Papas + Gaseosa) 🍔🍟🥤", precio: 20500, aliases: ["combo trio hamburguesa", "hamburguesa completa", "hamburguesa con papas y gaseosa", "combo completo hamburguesa"] },
-    trio_perro: { nombre: "Combo Trío Perro (Perro + Papas + Gaseosa) 🌭🍟🥤", precio: 15500, aliases: ["combo trio perro", "perro completo", "perro con papas y gaseosa", "combo completo perro"] },
+    trio_perro: { nombre: "Combo Trío Perro (Perro + Papas + Gaseosa) 🍔🍟🥤", precio: 15500, aliases: ["combo trio perro", "perro completo", "perro con papas y gaseosa", "combo completo perro"] },
     combo_familiar_hamburguesa: { nombre: "Combo Familiar Burguers (2 Burguers + Papas + Gaseosa 1.5L) 🍔🍔🍟🥤", precio: 42000, aliases: ["combo familiar hamburguesa", "combo pareja hamburguesa", "combo 2 hamburguesas"] },
     combo_familiar_perro: { nombre: "Combo Familiar Perros (2 Perros + Papas + Gaseosa 1.5L) 🌭🌭🍟🥤", precio: 32000, aliases: ["combo familiar perro", "combo pareja perro", "combo 2 perros"] },
     combo_cervecero_hamburguesa: { nombre: "Combo Cervecero Burguer (2 Burguers + Papas + Six-Pack) 🍔🍔🍟🍻", precio: 56000, aliases: ["combo cervecero hamburguesa", "combo cerveza hamburguesa", "combo amigos hamburguesa"] },
@@ -700,14 +699,15 @@ async function procesarMensaje(message) {
 }
 
 // ======================================================
-// EVENTOS CLIENTE WHATSAPP (QR COMPACTO EN TERMINAL)
+// EVENTOS CLIENTE WHATSAPP (ENLACE QR WEB LIMPIO)
 // ======================================================
 
 client.on("qr", qr => {
     console.log("\n==================================================");
-    console.log("📱 ESCANEA ESTE CÓDIGO QR DESDE TU WHATSAPP:");
+    console.log("📱 ESCANEA ESTE CÓDIGO QR DESDE TU NAVEGADOR");
+    console.log("Copia este enlace y pégalo en tu navegador para ver el QR perfecto y nítido:");
+    console.log(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qr)}`);
     console.log("==================================================\n");
-    qrcode.generate(qr, { small: true });
 });
 
 client.on("ready", () => {

@@ -1,0 +1,19 @@
+[phases.setup]
+nixPkgs = [
+    "nodejs_22",
+    "glib",
+    "nss",
+    "nspr",
+    "atk",
+    "cups",
+    "dbus",
+    "libdrm",
+    "libatasmart",
+    "libxkbcommon",
+    "pango",
+    "cairo",
+    "alsa-lib",
+    "expat",
+    "gtk3",
+    "libgbm"
+]

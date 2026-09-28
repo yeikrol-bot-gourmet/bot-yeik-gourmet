@@ -1,11 +1,43 @@
 require("dotenv").config();
 
-const { Client, LocalAuth } = require("whatsapp-web.js");
-const qrcode = require("qrcode-terminal");
-const fs = require("fs");
-const path = require("path");
-const Groq = require("groq-sdk");
+const { Client, LocalAuth } = require('whatsapp-web.js');
+// Ya no necesitamos qrcode-terminal porque deforma el diseño en la nube
 
+const client = new Client({
+    authStrategy: new LocalAuth(),
+    puppeteer: {
+        headless: true,
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-accelerated-2d-canvas',
+            '--no-first-run',
+            '--no-zygote',
+            '--disable-gpu'
+        ],
+    }
+});
+
+// Este evento captura el código en texto y te genera un enlace web para ver el QR perfecto
+client.on('qr', (qr) => {
+    console.log('=== ESCANEA ESTE QR DESDE TU NAVEGADOR ===');
+    console.log('Copia este enlace y pégalo en tu navegador para ver el código QR en grande y claro:');
+    console.log(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qr)}`);
+});
+
+client.on('ready', () => {
+    console.log('¡El bot de Diseños Yeik Gourmet está conectado y listo en la nube!');
+});
+
+client.on('message', async (msg) => {
+    const texto = msg.body.toLowerCase();
+    if (texto.includes('hola')) {
+        await msg.reply('¡Hola! Bienvenido a Diseños Yeik Gourmet. ¿En qué podemos ayudarte hoy?');
+    }
+});
+
+client.initialize();
 // ======================================================
 // CONFIGURACIÓN Y CONSTANTES
 // ======================================================
